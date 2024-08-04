@@ -1,4 +1,4 @@
-﻿namespace RentACar.ImageUploadMethod
+﻿namespace TravelApp.ImageUploadMethod
 {
     public class Upload
     {

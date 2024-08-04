@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Travel.Contracts.Komentar.Request;
-using Travel.Interfaces;
+using TravelApp.Contracts.Komentar.Request;
+using TravelApp.Interfaces;
 
-namespace Travel.Controllers
+namespace TravelApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

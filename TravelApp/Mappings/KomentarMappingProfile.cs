@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Travel.Contracts.Komentar.Request;
-using Travel.Models;
+using TravelApp.Contracts.Komentar.Request;
+using TravelApp.Models;
 
-namespace Travel.Mappings
+namespace TravelApp.Mappings
 {
     public class KomentarMappingProfile : Profile
     {

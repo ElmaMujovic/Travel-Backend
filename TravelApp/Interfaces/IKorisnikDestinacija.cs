@@ -1,7 +1,7 @@
-﻿using Travel.Contracts.KorisnikDestinacija.Request;
-using Travel.Models;
+﻿using TravelApp.Contracts.KorisnikDestinacija.Request;
+using TravelApp.Models;
 
-namespace Travel.Interfaces
+namespace TravelApp.Interfaces
 {
     public interface IKorisnikDestinacija
     {

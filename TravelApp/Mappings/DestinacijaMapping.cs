@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Travel.Contracts.Destinacija.Request;
-using Travel.Models;
+using TravelApp.Contracts.Destinacija.Request;
+using TravelApp.Models;
 
-namespace Travel.Mappings
+namespace TravelApp.Mappings
 {
     public class DestinacijaMapping : Profile
     {

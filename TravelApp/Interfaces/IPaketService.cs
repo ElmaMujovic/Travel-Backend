@@ -1,4 +1,4 @@
-﻿namespace Travel.Interfaces
+﻿namespace TravelApp.Interfaces
 {
     public class IPaketService
     {

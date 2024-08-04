@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Travel.Contracts.KorisnikDestinacija.Request;
-using Travel.Interfaces;
+using TravelApp.Contracts.KorisnikDestinacija.Request;
+using TravelApp.Interfaces;
 
-namespace Travel.Controllers
+namespace TravelApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]

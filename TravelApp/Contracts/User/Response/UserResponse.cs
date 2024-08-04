@@ -1,4 +1,4 @@
-﻿namespace Travel.Contracts.User.Response
+﻿namespace TravelApp.Contracts.User.Response
 {
     public class UserResponse
     {

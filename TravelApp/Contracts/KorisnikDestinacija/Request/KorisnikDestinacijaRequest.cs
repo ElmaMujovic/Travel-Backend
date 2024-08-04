@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using Travel.Models;
+using TravelApp.Models;
 
-namespace Travel.Contracts.KorisnikDestinacija.Request
+namespace TravelApp.Contracts.KorisnikDestinacija.Request
 {
     public class KorisnikDestinacijaRequest
     {

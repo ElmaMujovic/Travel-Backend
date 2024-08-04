@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using RentACar.ImageUploadMethod;
-using Travel.Contracts.Destinacija.Request;
-using Travel.Data;
-using Travel.Interfaces;
-using Travel.Models;
+using TravelApp.ImageUploadMethod;
+using TravelApp.Contracts.Destinacija.Request;
+using TravelApp.Data;
+using TravelApp.Interfaces;
+using TravelApp.Models;
 
-namespace Travel.Services
+namespace TravelApp.Services
 {
     public class DestinacijaService : IDestinacijaService
     {

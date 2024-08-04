@@ -1,4 +1,4 @@
-﻿namespace Travel.Contracts.Destinacija.Request
+﻿namespace TravelApp.Contracts.Destinacija.Request
 {
     public class DestinacijaUpdateRequest
     {

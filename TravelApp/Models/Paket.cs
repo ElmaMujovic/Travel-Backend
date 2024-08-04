@@ -1,4 +1,4 @@
-﻿namespace Travel.Models
+﻿namespace TravelApp.Models
 {
     public class Paket
     {

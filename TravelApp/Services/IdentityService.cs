@@ -4,13 +4,13 @@ using TravelApp.Settings;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Travel.Contracts.User.Request;
-using Travel.Contracts.User.Response;
-using Travel.Data;
-using Travel.Interfaces;
-using Travel.Models;
+using TravelApp.Contracts.User.Request;
+using TravelApp.Contracts.User.Response;
+using TravelApp.Data;
+using TravelApp.Interfaces;
+using TravelApp.Models;
 
-namespace Travel.Services
+namespace TravelApp.Services
 {
     public class IdentityService : IIdentityService
     { 

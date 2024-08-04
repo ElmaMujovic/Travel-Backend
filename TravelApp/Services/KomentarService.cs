@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Travel.Contracts.Komentar.Request;
-using Travel.Data;
-using Travel.Interfaces;
-using Travel.Models;
+using TravelApp.Contracts.Komentar.Request;
+using TravelApp.Data;
+using TravelApp.Interfaces;
+using TravelApp.Models;
 
-namespace Travel.Services
+namespace TravelApp.Services
 {
     public class KomentarService : IKomentarService
     {

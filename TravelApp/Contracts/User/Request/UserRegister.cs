@@ -1,4 +1,4 @@
-﻿namespace Travel.Contracts.User.Request
+﻿namespace TravelApp.Contracts.User.Request
 {
     public class UserRegister
     {

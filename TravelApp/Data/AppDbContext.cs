@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Travel.Models;
+using TravelApp.Models;
 
 
-namespace Travel.Data
+namespace TravelApp.Data
 {
     public class AppDbContext : IdentityDbContext<Korisnik, AppRole, int>
     {

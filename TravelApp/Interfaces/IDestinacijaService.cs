@@ -1,7 +1,7 @@
-﻿using Travel.Contracts.Destinacija.Request;
-using Travel.Models;
+﻿using TravelApp.Contracts.Destinacija.Request;
+using TravelApp.Models;
 
-namespace Travel.Interfaces
+namespace TravelApp.Interfaces
 {
     public interface IDestinacijaService
     {

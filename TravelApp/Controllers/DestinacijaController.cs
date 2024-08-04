@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RentACar.ImageUploadMethod;
-using Travel.Contracts.Destinacija.Request;
-using Travel.Interfaces;
+using TravelApp.Contracts.Destinacija.Request;
+using TravelApp.Interfaces;
 
-namespace Travel.Controllers
+namespace TravelApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

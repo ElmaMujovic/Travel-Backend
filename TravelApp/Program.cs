@@ -6,10 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using TravelApp.Settings;
 using System.Text;
-using Travel.Data;
-using Travel.Interfaces;
-using Travel.Models;
-using Travel.Services;
+using TravelApp.Data;
+using TravelApp.Interfaces;
+using TravelApp.Models;
+using TravelApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +24,7 @@ JwtSettings _jwtSettings = new JwtSettings();
 configuration.Bind(nameof(JwtSettings), _jwtSettings);
 builder.Services.AddSingleton(_jwtSettings);
 builder.Services.AddDbContext<AppDbContext>(options =>
-options.UseSqlServer("server=localhost\\SQLEXPRESS;database=TravelApp;trusted_connection=true;encrypt=false"));
+options.UseSqlServer("server=localhost\\SQLEXPRESS;database=TravelAppNovo;trusted_connection=true;encrypt=false"));
 
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);

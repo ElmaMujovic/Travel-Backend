@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using Travel.Models;
+using TravelApp.Models;
 
-namespace Travel.Contracts.Komentar.Request
+namespace TravelApp.Contracts.Komentar.Request
 {
     public class KomentarCreateRequest
     {

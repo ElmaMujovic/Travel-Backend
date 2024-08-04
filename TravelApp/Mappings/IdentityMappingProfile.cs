@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Travel.Contracts.User.Request;
-using Travel.Models;
+using TravelApp.Contracts.User.Request;
+using TravelApp.Models;
 
-namespace RentACar.Mappings
+namespace TravelApp.Mappings
 {
     public class IdentityMappingProfile : Profile
     {

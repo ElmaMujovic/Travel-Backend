@@ -1,8 +1,8 @@
-﻿using Travel.Contracts.User.Request;
-using Travel.Contracts.User.Response;
-using Travel.Models;
+﻿using TravelApp.Contracts.User.Request;
+using TravelApp.Contracts.User.Response;
+using TravelApp.Models;
 
-namespace Travel.Interfaces
+namespace TravelApp.Interfaces
 {
     public interface IIdentityService
     {

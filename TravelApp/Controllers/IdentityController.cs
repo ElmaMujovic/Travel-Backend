@@ -4,13 +4,13 @@ using System.Net.Mail;
 using System.Net;
 using System.Text;
 using System;
-using Travel.Contracts.User.Request;
-using Travel.Interfaces;
-using Travel.Models;
-using Travel.Contracts.User.Response;
-using RentACar.ImageUploadMethod;
+using TravelApp.Contracts.User.Request;
+using TravelApp.Interfaces;
+using TravelApp.Models;
+using TravelApp.Contracts.User.Response;
+using TravelApp.ImageUploadMethod;
 
-namespace Travel.Controllers
+namespace TravelApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

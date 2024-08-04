@@ -12,8 +12,8 @@ using TravelApp.Data;
 namespace TravelApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240731171236_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240804222325_InitialCreate2")]
+    partial class InitialCreate2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -127,7 +127,7 @@ namespace TravelApp.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Travel.Models.AppRole", b =>
+            modelBuilder.Entity("TravelApp.Models.AppRole", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -157,7 +157,7 @@ namespace TravelApp.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Travel.Models.Destinacija", b =>
+            modelBuilder.Entity("TravelApp.Models.Destinacija", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -185,7 +185,7 @@ namespace TravelApp.Migrations
                     b.ToTable("Destinacije");
                 });
 
-            modelBuilder.Entity("Travel.Models.Komentar", b =>
+            modelBuilder.Entity("TravelApp.Models.Komentar", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -216,7 +216,7 @@ namespace TravelApp.Migrations
                     b.ToTable("Komentari");
                 });
 
-            modelBuilder.Entity("Travel.Models.Korisnik", b =>
+            modelBuilder.Entity("TravelApp.Models.Korisnik", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -303,7 +303,7 @@ namespace TravelApp.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Travel.Models.KorisnikDestinacija", b =>
+            modelBuilder.Entity("TravelApp.Models.KorisnikDestinacija", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -326,7 +326,7 @@ namespace TravelApp.Migrations
                     b.ToTable("KorisnikDestinacije");
                 });
 
-            modelBuilder.Entity("Travel.Models.Paket", b =>
+            modelBuilder.Entity("TravelApp.Models.Paket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -352,7 +352,7 @@ namespace TravelApp.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
-                    b.HasOne("Travel.Models.AppRole", null)
+                    b.HasOne("TravelApp.Models.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -361,7 +361,7 @@ namespace TravelApp.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("Travel.Models.Korisnik", null)
+                    b.HasOne("TravelApp.Models.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -370,7 +370,7 @@ namespace TravelApp.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("Travel.Models.Korisnik", null)
+                    b.HasOne("TravelApp.Models.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -379,13 +379,13 @@ namespace TravelApp.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.HasOne("Travel.Models.AppRole", null)
+                    b.HasOne("TravelApp.Models.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Travel.Models.Korisnik", null)
+                    b.HasOne("TravelApp.Models.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -394,22 +394,22 @@ namespace TravelApp.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.HasOne("Travel.Models.Korisnik", null)
+                    b.HasOne("TravelApp.Models.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Travel.Models.Komentar", b =>
+            modelBuilder.Entity("TravelApp.Models.Komentar", b =>
                 {
-                    b.HasOne("Travel.Models.Destinacija", "Destinacija")
+                    b.HasOne("TravelApp.Models.Destinacija", "Destinacija")
                         .WithMany("Komentari")
                         .HasForeignKey("DestinacijaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Travel.Models.Korisnik", "Korisnik")
+                    b.HasOne("TravelApp.Models.Korisnik", "Korisnik")
                         .WithMany("Komentari")
                         .HasForeignKey("KorisnikId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -420,15 +420,15 @@ namespace TravelApp.Migrations
                     b.Navigation("Korisnik");
                 });
 
-            modelBuilder.Entity("Travel.Models.KorisnikDestinacija", b =>
+            modelBuilder.Entity("TravelApp.Models.KorisnikDestinacija", b =>
                 {
-                    b.HasOne("Travel.Models.Destinacija", "Destinacija")
+                    b.HasOne("TravelApp.Models.Destinacija", "Destinacija")
                         .WithMany("korisnikDestinacijas")
                         .HasForeignKey("DestinacijaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Travel.Models.Korisnik", "Korisnik")
+                    b.HasOne("TravelApp.Models.Korisnik", "Korisnik")
                         .WithMany("KorisnikDestinacije")
                         .HasForeignKey("KorisnikId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -439,14 +439,14 @@ namespace TravelApp.Migrations
                     b.Navigation("Korisnik");
                 });
 
-            modelBuilder.Entity("Travel.Models.Destinacija", b =>
+            modelBuilder.Entity("TravelApp.Models.Destinacija", b =>
                 {
                     b.Navigation("Komentari");
 
                     b.Navigation("korisnikDestinacijas");
                 });
 
-            modelBuilder.Entity("Travel.Models.Korisnik", b =>
+            modelBuilder.Entity("TravelApp.Models.Korisnik", b =>
                 {
                     b.Navigation("Komentari");
 

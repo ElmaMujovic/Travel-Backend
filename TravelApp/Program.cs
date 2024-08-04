@@ -24,7 +24,7 @@ JwtSettings _jwtSettings = new JwtSettings();
 configuration.Bind(nameof(JwtSettings), _jwtSettings);
 builder.Services.AddSingleton(_jwtSettings);
 builder.Services.AddDbContext<AppDbContext>(options =>
-options.UseSqlServer("server=localhost\\SQLEXPRESS;database=TravelAppNovo;trusted_connection=true;encrypt=false"));
+options.UseSqlServer("server=localhost\\SQLEXPRESS;database=TuristickaAgencija;trusted_connection=true;encrypt=false"));
 
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);

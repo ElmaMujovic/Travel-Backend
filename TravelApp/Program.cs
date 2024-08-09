@@ -32,6 +32,8 @@ builder.Services.AddScoped<IIdentityService, IdentityService>();
 builder.Services.AddScoped<IDestinacijaService, DestinacijaService>();
 builder.Services.AddScoped<IKorisnikDestinacija, KorisnikDestinacijaService>();
 builder.Services.AddScoped<IKomentarService, KomentarService>();
+builder.Services.AddScoped<IPaketService, PaketService>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

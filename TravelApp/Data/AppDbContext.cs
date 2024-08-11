@@ -38,21 +38,28 @@ namespace TravelApp.Data
                 .WithMany(d => d.Komentari)
                 .HasForeignKey(k => k.DestinacijaId);
 
-            // Ako imate specifične konfiguracije za Paket, dodajte ih ovde
+            // Konfiguracija za Paket
             builder.Entity<Paket>()
                 .HasKey(p => p.Id);
 
-            // Ako Paket ima relacije sa drugim entitetima, konfigurišite ih ovde
-            // Na primer, ako Paket ima relaciju sa Destinacija:
-            // builder.Entity<Paket>()
-            //     .HasOne(p => p.Destinacija)
-            //     .WithMany(d => d.Paketi)
-            //     .HasForeignKey(p => p.DestinacijaId);
+            // Konfiguracija za DestinacijaPaketa
+            builder.Entity<DestinacijaPaketa>()
+                .HasKey(dp => dp.Id);
+
+            builder.Entity<Paket>()
+                  .HasMany(p => p.DestinacijePaketa) // Ova linija bi trebala raditi sada
+                  .WithOne(dp => dp.Paket)
+                  .HasForeignKey(dp => dp.PaketId);
+
+            // Konfiguracija za DestinacijaPaketa
+            builder.Entity<DestinacijaPaketa>()
+                .HasKey(dp => dp.Id);
         }
 
         public DbSet<Destinacija> Destinacije { get; set; }
         public DbSet<KorisnikDestinacija> KorisnikDestinacije { get; set; }
         public DbSet<Komentar> Komentari { get; set; }
         public DbSet<Paket> Paketi { get; set; }
+        public DbSet<DestinacijaPaketa> DestinacijaPaketa { get; set; } 
     }
 }

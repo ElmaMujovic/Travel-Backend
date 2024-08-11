@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TravelApp.Contracts.KorisnikDestinacija.Request;
 using TravelApp.Interfaces;
-
+using TravelApp.Models;
+using System.Threading.Tasks;
 namespace TravelApp.Controllers
 {
     [ApiController]

@@ -10,6 +10,8 @@ using TravelApp.Data;
 using TravelApp.Interfaces;
 using TravelApp.Models;
 using TravelApp.Services;
+using TravelApp.Mappings;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,8 +26,7 @@ JwtSettings _jwtSettings = new JwtSettings();
 configuration.Bind(nameof(JwtSettings), _jwtSettings);
 builder.Services.AddSingleton(_jwtSettings);
 builder.Services.AddDbContext<AppDbContext>(options =>
-options.UseSqlServer("server=localhost\\SQLEXPRESS;database=TuristickaAgencija;trusted_connection=true;encrypt=false"));
-
+    options.UseSqlServer("server=localhost\\SQLEXPRESS;database=TuristickaAgencija;trusted_connection=true;encrypt=false"));
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IIdentityService, IdentityService>();
@@ -33,11 +34,14 @@ builder.Services.AddScoped<IDestinacijaService, DestinacijaService>();
 builder.Services.AddScoped<IKorisnikDestinacija, KorisnikDestinacijaService>();
 builder.Services.AddScoped<IKomentarService, KomentarService>();
 builder.Services.AddScoped<IPaketService, PaketService>();
+builder.Services.AddScoped<IDestinacijaPaketaService>(provider =>
+    new DestinacijaPaketaService(provider.GetRequiredService<AppDbContext>(),
+    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images")));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddAutoMapper(typeof(PaketMappingProfile).Assembly);
 
 builder.Services.AddAuthentication(options =>
 {
@@ -50,7 +54,6 @@ builder.Services.AddAuthentication(options =>
     {
         options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
         {
-
             ValidateIssuer = false,
             ValidateAudience = false,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
@@ -60,9 +63,7 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
-
 var app = builder.Build();
-
 
 using (var serviceScope = app.Services.CreateScope())
 {

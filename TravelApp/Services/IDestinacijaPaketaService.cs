@@ -110,7 +110,7 @@ namespace TravelApp.Services
                 throw new InvalidOperationException("Problem sa čuvanjem fajla.", ex);
             }
 
-            return filePath;
+            return fileName;  // Vrati samo naziv fajla, ne celu putanju
         }
 
         private void DeleteFile(string filePath)

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using TravelApp.Contracts.DestinacijePaketa.Requests;
 using TravelApp.Interfaces;
+using System.Collections.Generic;
 
 namespace TravelApp.Controllers
 {
@@ -18,6 +19,7 @@ namespace TravelApp.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
+        // Ovaj endpoint vraća sve destinacije paketa
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -25,6 +27,7 @@ namespace TravelApp.Controllers
             return Ok(destinacijePaketa);
         }
 
+        // Ovaj endpoint vraća destinaciju paketa prema njenom ID-u
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -34,6 +37,18 @@ namespace TravelApp.Controllers
             return Ok(destinacijaPaketa);
         }
 
+        // Ovaj endpoint vraća sve destinacije za dati paketId
+        [HttpGet("Paket/{paketId}")]
+        public async Task<IActionResult> GetDestinacijeByPaketId(int paketId)
+        {
+            var destinacije = await destinacijaPaketaService.GetDestinacijeByPaketId(paketId);
+            if (destinacije == null || !destinacije.Any())
+                return NotFound();
+
+            return Ok(destinacije);
+        }
+
+        // Kreiranje nove destinacije paketa
         [HttpPost]
         public async Task<IActionResult> Post([FromForm] DestinacijaPaketaCreateRequest destinacijaPaketaRequest)
         {
@@ -43,6 +58,7 @@ namespace TravelApp.Controllers
             return Ok(newDestinacijaPaketa);
         }
 
+        // Ažuriranje destinacije paketa prema njenom ID-u
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromForm] DestinacijaPaketaUpdateRequest destinacijaPaketaRequest, int id)
         {
@@ -52,6 +68,7 @@ namespace TravelApp.Controllers
             return Ok(updateDestinacijaPaketa);
         }
 
+        // Brisanje destinacije paketa prema njenom ID-u
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

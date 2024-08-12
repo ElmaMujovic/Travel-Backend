@@ -6,5 +6,6 @@
         public string Opis { get; set; }
         public IFormFile Slika { get; set; }
         public int PaketId { get; set; }
+
     }
 }

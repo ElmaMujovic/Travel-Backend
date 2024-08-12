@@ -1,12 +1,13 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using TravelApp.Data;
 using TravelApp.Models;
 using TravelApp.Contracts.DestinacijePaketa.Requests;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using TravelApp.Interfaces;
 using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace TravelApp.Services
 {
@@ -31,9 +32,15 @@ namespace TravelApp.Services
             return await _context.DestinacijaPaketa.FindAsync(id);
         }
 
+        public async Task<IEnumerable<DestinacijaPaketa>> GetDestinacijeByPaketId(int paketId)
+        {
+            return await _context.DestinacijaPaketa
+                .Where(dp => dp.PaketId == paketId)
+                .ToListAsync();
+        }
+
         public async Task<bool> CreateDestinacijaPaketa(DestinacijaPaketaCreateRequest request)
         {
-            // Čuvanje slike i dobijanje putanje
             var imagePath = SaveFile(request.Slika);
 
             var destinacijaPaketa = new DestinacijaPaketa
@@ -55,9 +62,13 @@ namespace TravelApp.Services
             destinacijaPaketa.Naziv = request.Naziv;
             destinacijaPaketa.Opis = request.Opis;
 
-            // Ako je slika nova, sačuvaj je i ažuriraj putanju
             if (request.Slika != null)
             {
+                if (!string.IsNullOrEmpty(destinacijaPaketa.Slika))
+                {
+                    DeleteFile(destinacijaPaketa.Slika);
+                }
+
                 destinacijaPaketa.Slika = SaveFile(request.Slika);
             }
 
@@ -70,6 +81,11 @@ namespace TravelApp.Services
             var destinacijaPaketa = await _context.DestinacijaPaketa.FindAsync(id);
             if (destinacijaPaketa == null) return false;
 
+            if (!string.IsNullOrEmpty(destinacijaPaketa.Slika))
+            {
+                DeleteFile(destinacijaPaketa.Slika);
+            }
+
             _context.DestinacijaPaketa.Remove(destinacijaPaketa);
             return await _context.SaveChangesAsync() > 0;
         }
@@ -79,17 +95,37 @@ namespace TravelApp.Services
             if (file == null || file.Length == 0)
                 return null;
 
-            // Kreiraj putanju do direktorijuma gde će se fajl čuvati
-            var filePath = Path.Combine(_imageFolderPath, file.FileName);
+            var fileName = $"{Path.GetFileNameWithoutExtension(file.FileName)}_{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+            var filePath = Path.Combine(_imageFolderPath, fileName);
 
-            // Čuvanje fajla na fizičkom disku
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            try
             {
-                file.CopyTo(stream);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+            }
+            catch (IOException ex)
+            {
+                throw new InvalidOperationException("Problem sa čuvanjem fajla.", ex);
             }
 
-            // Vraća putanju do fajla
             return filePath;
+        }
+
+        private void DeleteFile(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    File.Delete(filePath);
+                }
+                catch (IOException ex)
+                {
+                    throw new InvalidOperationException("Problem sa brisanjem fajla.", ex);
+                }
+            }
         }
     }
 }

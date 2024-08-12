@@ -47,19 +47,20 @@ namespace TravelApp.Data
                 .HasKey(dp => dp.Id);
 
             builder.Entity<Paket>()
-                  .HasMany(p => p.DestinacijePaketa) // Ova linija bi trebala raditi sada
-                  .WithOne(dp => dp.Paket)
-                  .HasForeignKey(dp => dp.PaketId);
+                .HasMany(p => p.DestinacijePaketa)
+                .WithOne(dp => dp.Paket)
+                .HasForeignKey(dp => dp.PaketId);
 
-            // Konfiguracija za DestinacijaPaketa
             builder.Entity<DestinacijaPaketa>()
-                .HasKey(dp => dp.Id);
+                .HasOne(dp => dp.Paket)
+                .WithMany(p => p.DestinacijePaketa)
+                .HasForeignKey(dp => dp.PaketId);
         }
 
         public DbSet<Destinacija> Destinacije { get; set; }
         public DbSet<KorisnikDestinacija> KorisnikDestinacije { get; set; }
         public DbSet<Komentar> Komentari { get; set; }
         public DbSet<Paket> Paketi { get; set; }
-        public DbSet<DestinacijaPaketa> DestinacijaPaketa { get; set; } 
+        public DbSet<DestinacijaPaketa> DestinacijaPaketa { get; set; }
     }
 }

@@ -11,19 +11,19 @@ namespace TravelApp.Mappings
         {
             // Mapiranje iz DestinacijaPaketaCreateRequest na DestinacijaPaketa
             CreateMap<DestinacijaPaketaCreateRequest, DestinacijaPaketa>()
-                .ForMember(dest => dest.Slika, opt => opt.MapFrom(src => src.Slika)); // Mapiranje putanje slike
+                .ForMember(dest => dest.Slika, opt => opt.Ignore()); // Ignoriši mapiranje za Slika
 
             // Mapiranje iz DestinacijaPaketa na DestinacijaPaketaCreateRequest
             CreateMap<DestinacijaPaketa, DestinacijaPaketaCreateRequest>()
-                .ForMember(dest => dest.Slika, opt => opt.MapFrom(src => src.Slika)); // Mapiranje putanje slike
+                .ForMember(dest => dest.Slika, opt => opt.Ignore()); // Ignoriši mapiranje za Slika
 
             // Mapiranje iz DestinacijaPaketaUpdateRequest na DestinacijaPaketa
             CreateMap<DestinacijaPaketaUpdateRequest, DestinacijaPaketa>()
-                .ForMember(dest => dest.Slika, opt => opt.MapFrom(src => src.Slika)); // Mapiranje putanje slike
+                .ForMember(dest => dest.Slika, opt => opt.Ignore()); // Ignoriši mapiranje za Slika
 
             // Mapiranje iz DestinacijaPaketa na DestinacijaPaketaUpdateRequest
             CreateMap<DestinacijaPaketa, DestinacijaPaketaUpdateRequest>()
-                .ForMember(dest => dest.Slika, opt => opt.MapFrom(src => src.Slika)); // Mapiranje putanje slike
+                .ForMember(dest => dest.Slika, opt => opt.Ignore()); // Ignoriši mapiranje za Slika
         }
     }
 }

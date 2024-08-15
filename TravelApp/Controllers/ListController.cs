@@ -41,17 +41,26 @@ namespace TravelApp.Controllers
 
         // POST: api/List
         [HttpPost]
+        [HttpPost]
         public async Task<ActionResult<List>> CreateList([FromForm] ListCreateDTO listCreateDTO)
         {
-            var list = await _listService.CreateListAsync(listCreateDTO);
-           // return CreatedAtAction(nameof(GetList), new { id = list.Id }, list);
-           if(list != null)
-                return BadRequest();
-           return Ok(list);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); // Vrati sve greške validacije klijentu
+            }
 
-
-
+            try
+            {
+                var list = await _listService.CreateListAsync(listCreateDTO);
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                // Logujte grešku ovde
+                return StatusCode(500, "Internal server error");
+            }
         }
+
 
         // PUT: api/List/5
         [HttpPut("{id}")]

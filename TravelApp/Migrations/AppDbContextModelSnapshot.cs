@@ -133,6 +133,9 @@ namespace TravelApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("DestinacijaPaketaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Naziv")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -354,6 +357,67 @@ namespace TravelApp.Migrations
                     b.ToTable("KorisnikDestinacije");
                 });
 
+            modelBuilder.Entity("TravelApp.Models.List", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BrojZvezdica")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DestinacijaPaketaId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ImaBazen")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ImaParking")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ImaPrevoz")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ImaTV")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ImaWiFi")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Naziv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NovaCena")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Opis")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PaketId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Slika")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StaraCena")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DestinacijaPaketaId");
+
+                    b.HasIndex("PaketId");
+
+                    b.ToTable("List");
+                });
+
             modelBuilder.Entity("TravelApp.Models.Paket", b =>
                 {
                     b.Property<int>("Id")
@@ -381,73 +445,6 @@ namespace TravelApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Paketi");
-                });
-
-            modelBuilder.Entity("TravelApp.Models.PaketDestinacije", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<bool>("Bazen")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("GlavnaSlika")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Internet")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Naslov")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Opis")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PaketId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Parking")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("TV")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Zvezdice")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PaketId");
-
-                    b.ToTable("PaketDestinacije");
-                });
-
-            modelBuilder.Entity("TravelApp.Models.SlikaDestinacije", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("PaketDestinacijeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SlikaUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PaketDestinacijeId");
-
-                    b.ToTable("SlikeDestinacije");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -550,26 +547,23 @@ namespace TravelApp.Migrations
                     b.Navigation("Korisnik");
                 });
 
-            modelBuilder.Entity("TravelApp.Models.PaketDestinacije", b =>
+            modelBuilder.Entity("TravelApp.Models.List", b =>
                 {
-                    b.HasOne("TravelApp.Models.Paket", "Paket")
+                    b.HasOne("TravelApp.Data.DestinacijaPaketa", "DestinacijaPaketa")
                         .WithMany()
-                        .HasForeignKey("PaketId")
+                        .HasForeignKey("DestinacijaPaketaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("TravelApp.Models.Paket", "Paket")
+                        .WithMany("List")
+                        .HasForeignKey("PaketId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("DestinacijaPaketa");
 
                     b.Navigation("Paket");
-                });
-
-            modelBuilder.Entity("TravelApp.Models.SlikaDestinacije", b =>
-                {
-                    b.HasOne("TravelApp.Models.PaketDestinacije", "PaketDestinacije")
-                        .WithMany("DodatneSlike")
-                        .HasForeignKey("PaketDestinacijeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PaketDestinacije");
                 });
 
             modelBuilder.Entity("TravelApp.Models.Destinacija", b =>
@@ -589,11 +583,8 @@ namespace TravelApp.Migrations
             modelBuilder.Entity("TravelApp.Models.Paket", b =>
                 {
                     b.Navigation("DestinacijePaketa");
-                });
 
-            modelBuilder.Entity("TravelApp.Models.PaketDestinacije", b =>
-                {
-                    b.Navigation("DodatneSlike");
+                    b.Navigation("List");
                 });
 #pragma warning restore 612, 618
         }

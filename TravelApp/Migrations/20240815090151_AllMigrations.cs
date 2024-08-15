@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TravelApp.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class AllMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -79,7 +79,8 @@ namespace TravelApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Naziv = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Opis = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cena = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Tag = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -246,6 +247,65 @@ namespace TravelApp.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "DestinacijaPaketa",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Naziv = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Opis = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Slika = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PaketId = table.Column<int>(type: "int", nullable: false),
+                    DestinacijaPaketaId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DestinacijaPaketa", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DestinacijaPaketa_Paketi_PaketId",
+                        column: x => x.PaketId,
+                        principalTable: "Paketi",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "List",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Naziv = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Opis = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StaraCena = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NovaCena = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImaBazen = table.Column<bool>(type: "bit", nullable: false),
+                    ImaWiFi = table.Column<bool>(type: "bit", nullable: false),
+                    ImaTV = table.Column<bool>(type: "bit", nullable: false),
+                    ImaParking = table.Column<bool>(type: "bit", nullable: false),
+                    ImaPrevoz = table.Column<bool>(type: "bit", nullable: false),
+                    BrojZvezdica = table.Column<int>(type: "int", nullable: false),
+                    Slika = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PaketId = table.Column<int>(type: "int", nullable: false),
+                    DestinacijaPaketaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_List", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_List_DestinacijaPaketa_DestinacijaPaketaId",
+                        column: x => x.DestinacijaPaketaId,
+                        principalTable: "DestinacijaPaketa",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_List_Paketi_PaketId",
+                        column: x => x.PaketId,
+                        principalTable: "Paketi",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -286,6 +346,11 @@ namespace TravelApp.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DestinacijaPaketa_PaketId",
+                table: "DestinacijaPaketa",
+                column: "PaketId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Komentari_DestinacijaId",
                 table: "Komentari",
                 column: "DestinacijaId");
@@ -304,6 +369,16 @@ namespace TravelApp.Migrations
                 name: "IX_KorisnikDestinacije_KorisnikId",
                 table: "KorisnikDestinacije",
                 column: "KorisnikId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_List_DestinacijaPaketaId",
+                table: "List",
+                column: "DestinacijaPaketaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_List_PaketId",
+                table: "List",
+                column: "PaketId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -330,7 +405,7 @@ namespace TravelApp.Migrations
                 name: "KorisnikDestinacije");
 
             migrationBuilder.DropTable(
-                name: "Paketi");
+                name: "List");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -340,6 +415,12 @@ namespace TravelApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Destinacije");
+
+            migrationBuilder.DropTable(
+                name: "DestinacijaPaketa");
+
+            migrationBuilder.DropTable(
+                name: "Paketi");
         }
     }
 }

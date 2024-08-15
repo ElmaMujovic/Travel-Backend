@@ -12,6 +12,8 @@ using TravelApp.Models;
 using TravelApp.Services;
 using TravelApp.Mappings;
 using System.IO;
+using TravelApp.Contracts.List;
+using TravelApp.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -28,7 +30,7 @@ configuration.Bind(nameof(JwtSettings), _jwtSettings);
 builder.Services.AddSingleton(_jwtSettings);
 builder.Services.AddDbContext<AppDbContext>(options =>
 
-options.UseSqlServer("server=localhost\\SQLEXPRESS;database=TuristickaAgencija;trusted_connection=true;encrypt=false"));
+options.UseSqlServer("server=localhost\\SQLEXPRESS;database=TuristickaAgencijaNovo;trusted_connection=true;encrypt=false"));
 
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
@@ -40,6 +42,13 @@ builder.Services.AddScoped<IPaketService, PaketService>();
 builder.Services.AddScoped<IDestinacijaPaketaService>(provider =>
     new DestinacijaPaketaService(provider.GetRequiredService<AppDbContext>(),
     Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images")));
+
+
+builder.Services.AddScoped<IListService, ListService>();
+
+builder.Services.AddScoped<IListService, ListService>();
+
+builder.Services.AddAutoMapper(typeof(ListMappingProfile).Assembly);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

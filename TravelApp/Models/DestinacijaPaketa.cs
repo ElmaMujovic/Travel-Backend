@@ -22,5 +22,8 @@ namespace TravelApp.Data
         [ForeignKey("Paket")]
         public int PaketId { get; set; }
         public Paket Paket { get; set; }
+
+        public int? DestinacijaPaketaId { get; set; } // Opciono polje za ID destinacije paketa
+
     }
 }

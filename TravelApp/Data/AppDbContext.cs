@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using TravelApp.Models;
 
 namespace TravelApp.Data
@@ -10,9 +11,10 @@ namespace TravelApp.Data
         {
         }
 
+
+
      
 
-        public DbSet<DestinacijaPaketa> DestinacijaPaketa { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -63,12 +65,26 @@ namespace TravelApp.Data
                 .HasOne(dp => dp.Paket)
                 .WithMany(p => p.DestinacijePaketa)
                 .HasForeignKey(dp => dp.PaketId);
+
+
+            builder.Entity<List>()
+    .HasOne(l => l.Paket)
+    .WithMany(p => p.List)
+    .HasForeignKey(l => l.PaketId)
+    .OnDelete(DeleteBehavior.NoAction);
         }
 
         public DbSet<Destinacija> Destinacije { get; set; }
         public DbSet<KorisnikDestinacija> KorisnikDestinacije { get; set; }
         public DbSet<Komentar> Komentari { get; set; }
         public DbSet<Paket> Paketi { get; set; }
-         
+        public DbSet<DestinacijaPaketa> DestinacijaPaketa { get; set; }
+
+
+        public DbSet<List> TravelLists { get; set; }
+        public DbSet<List> Lists { get; set; }  // Dodajte ovo
+
+
+
     }
 }

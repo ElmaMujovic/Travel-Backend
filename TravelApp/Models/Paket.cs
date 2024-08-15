@@ -16,6 +16,8 @@ namespace TravelApp.Models
         public string Tag { get; set; } 
         public string ImagePath { get; set; } // Pretpostavljamo da je ovo za sliku
         public ICollection<DestinacijaPaketa> DestinacijePaketa { get; set; }  // Ispravna veza sa DestinacijaPaketa
+        public ICollection<List> List { get; set; }  // Ispravna veza sa DestinacijaPaketa
+
 
     }
 }

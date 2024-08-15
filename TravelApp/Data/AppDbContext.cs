@@ -10,16 +10,22 @@ namespace TravelApp.Data
         {
         }
 
+     
+
+        public DbSet<DestinacijaPaketa> DestinacijaPaketa { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.Entity<KorisnikDestinacija>()
                 .HasKey(kd => kd.Id);
+
             builder.Entity<KorisnikDestinacija>()
                 .HasOne(kd => kd.Korisnik)
                 .WithMany(k => k.KorisnikDestinacije)
                 .HasForeignKey(kd => kd.KorisnikId);
+
             builder.Entity<KorisnikDestinacija>()
                 .HasOne(kd => kd.Destinacija)
                 .WithMany(d => d.korisnikDestinacijas)
@@ -42,6 +48,8 @@ namespace TravelApp.Data
             builder.Entity<Paket>()
                 .HasKey(p => p.Id);
 
+           
+
             // Konfiguracija za DestinacijaPaketa
             builder.Entity<DestinacijaPaketa>()
                 .HasKey(dp => dp.Id);
@@ -61,6 +69,6 @@ namespace TravelApp.Data
         public DbSet<KorisnikDestinacija> KorisnikDestinacije { get; set; }
         public DbSet<Komentar> Komentari { get; set; }
         public DbSet<Paket> Paketi { get; set; }
-        public DbSet<DestinacijaPaketa> DestinacijaPaketa { get; set; }
+         
     }
 }

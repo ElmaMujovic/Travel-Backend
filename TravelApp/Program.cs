@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +14,6 @@ using TravelApp.Mappings;
 using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 ConfigurationManager configuration = builder.Configuration;
 builder.Services.AddControllers();
@@ -23,10 +22,14 @@ builder.Services.AddIdentity<Korisnik, AppRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
 JwtSettings _jwtSettings = new JwtSettings();
+
+
 configuration.Bind(nameof(JwtSettings), _jwtSettings);
 builder.Services.AddSingleton(_jwtSettings);
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer("server=localhost\\SQLEXPRESS;database=TuristickaAgencija;trusted_connection=true;encrypt=false"));
+
+options.UseSqlServer("server=localhost\\SQLEXPRESS;database=TuristickaAgencija;trusted_connection=true;encrypt=false"));
+
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IIdentityService, IdentityService>();
@@ -41,6 +44,7 @@ builder.Services.AddScoped<IDestinacijaPaketaService>(provider =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddAutoMapper(typeof(PaketMappingProfile).Assembly);
 
 builder.Services.AddAuthentication(options =>
@@ -48,22 +52,22 @@ builder.Services.AddAuthentication(options =>
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-
 })
-    .AddJwtBearer(options =>
+   .AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
     {
-        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-        {
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
-            ValidateIssuerSigningKey = true,
-            RequireExpirationTime = false,
-            ValidateLifetime = true
-        };
-    });
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
+        ValidateIssuerSigningKey = true,
+        RequireExpirationTime = false,
+        ValidateLifetime = true
+    };
+});
 
 var app = builder.Build();
+
 
 using (var serviceScope = app.Services.CreateScope())
 {
@@ -88,15 +92,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseCors(x => x.AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed(origin => true).AllowCredentials());
-
 app.UseStaticFiles();
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.UseAuthentication();
 
 app.MapControllers();

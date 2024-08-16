@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TravelApp.Contracts.Destinacija.Request;
+using TravelApp.Contracts.User.Request;
 using TravelApp.Interfaces;
 
 namespace TravelApp.Controllers
@@ -58,5 +59,7 @@ namespace TravelApp.Controllers
                 return BadRequest();
             return Ok(deleteDestinacija);
         }
+       
+
     }
 }

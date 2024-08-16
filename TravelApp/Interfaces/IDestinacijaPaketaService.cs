@@ -14,5 +14,6 @@ namespace TravelApp.Interfaces
         Task<bool> UpdateDestinacijaPaketa(DestinacijaPaketaUpdateRequest request, int id);
         Task<bool> DeleteDestinacijaPaketa(int id);
         Task<IEnumerable<DestinacijaPaketa>> GetDestinacijeByPaketId(int paketId); // Dodato
+        Task<IEnumerable<DestinacijaPaketa>> GetDestinacijeByPaketIdnew(int paketId);
     }
 }

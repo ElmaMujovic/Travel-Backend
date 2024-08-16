@@ -39,6 +39,16 @@ namespace TravelApp.Controllers
             return Ok(list);
         }
 
+        [HttpGet("destination/{id}")]
+        public async Task<ActionResult<List>> GetListByDestination(int id)
+        {
+            var list = await _listService.GetListByIdAsyncDestination(id);
+            if (list == null)
+            {
+                return NotFound();
+            }
+            return Ok(list);
+        }
         // POST: api/List
         [HttpPost]
         [HttpPost]

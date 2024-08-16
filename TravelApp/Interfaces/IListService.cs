@@ -12,5 +12,6 @@ namespace TravelApp.Interfaces
         Task<List> CreateListAsync(ListCreateDTO listCreateDTO);
         Task UpdateListAsync(int id, ListUpdateDTO listUpdateDTO);
         Task DeleteListAsync(int id);
+        Task<List> GetListByIdAsyncDestination(int id);
     }
 }

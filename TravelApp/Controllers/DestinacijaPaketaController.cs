@@ -47,6 +47,15 @@ namespace TravelApp.Controllers
 
             return Ok(destinacije);
         }
+        [HttpGet("Paketnew/{paketId}")]
+        public async Task<IActionResult> GetDestinacijeByPaketIdNew(int paketId)
+        {
+            var destinacije = await destinacijaPaketaService.GetDestinacijeByPaketIdnew(paketId);
+            if (destinacije == null || !destinacije.Any())
+                return NotFound();
+
+            return Ok(destinacije);
+        }
 
         // Kreiranje nove destinacije paketa
         [HttpPost]

@@ -36,7 +36,21 @@ namespace TravelApp.Services
         {
             return await _context.DestinacijaPaketa
                 .Where(dp => dp.PaketId == paketId)
+                
                 .ToListAsync();
+        }
+        public async Task<IEnumerable<DestinacijaPaketa>> GetDestinacijeByPaketIdnew(int paketId)
+        {
+            // Dohvatanje svih destinacija za određeni paket
+            var destinacije = await _context.DestinacijaPaketa
+                .Where(dp => dp.PaketId == paketId)
+                .ToListAsync();
+
+            // Filtriranje destinacija koje već imaju dodatu listu
+            var destinacijeBezListe = destinacije.Where(d =>
+                !_context.Lists.Any(l => l.DestinacijaPaketaId == d.Id)).ToList();
+
+            return destinacijeBezListe;
         }
 
         public async Task<bool> CreateDestinacijaPaketa(DestinacijaPaketaCreateRequest request)

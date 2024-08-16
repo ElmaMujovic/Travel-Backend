@@ -58,6 +58,16 @@ public class ListService : IListService
         }
         return list;
     }
+    public async Task<List> GetListByIdAsyncDestination(int id)
+    {
+        var listnovo = await _context.Lists.FirstOrDefaultAsync(x => x.DestinacijaPaketaId == id);
+        if (listnovo == null)
+        {
+            throw new KeyNotFoundException("");
+        }
+        return listnovo;
+    }
+
 
     public async Task<IEnumerable<List>> GetAllListsAsync()
     {

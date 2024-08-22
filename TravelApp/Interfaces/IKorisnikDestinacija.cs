@@ -10,5 +10,9 @@ namespace TravelApp.Interfaces
         Task<List<KorisnikDestinacija>> GetAllKorisnikDestinacijaAsync();
         Task<KorisnikDestinacija> UpdateKorisnikDestinacijaAsync(KorisnikDestinacijaUpdate request);
         Task<bool> DeleteKorisnikDestinacijaAsync(int id);
+        Task<bool> AddKorisnikDestinacijaFavorites(KorisnikDestinacijaRequest request);
+        Task<bool> RemoveKorisnikDestinacijaAsync(int destinacijaId);
+        Task<IEnumerable<Destinacija>> GetLajkovaneDestinacijeAsync(int korisnikId);
+        Task<bool> AddKorisnikDestinacijaFavoritesAsync(int korisnikId, int destinacijaId);
     }
 }

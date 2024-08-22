@@ -25,10 +25,10 @@ namespace TravelApp.Controllers
             return Ok(komentari);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("comments/{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var komentar = await _komentarService.GetKomentarByIdAsync(id);
+            var komentar = await _komentarService.GetKomentarByDestinacijaIdAsync(id);
 
             return Ok(komentar);
         }
@@ -44,7 +44,7 @@ namespace TravelApp.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete-comment{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _komentarService.DeleteKomentarAsync(id);

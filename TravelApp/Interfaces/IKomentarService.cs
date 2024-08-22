@@ -7,7 +7,7 @@ namespace TravelApp.Interfaces
     {
         Task<bool> AddKomentarAsync(KomentarCreateRequest request);
         Task<bool> DeleteKomentarAsync(int id);
-        Task<Komentar> GetKomentarByIdAsync(int id);
+        Task<List<KomentarDto>> GetKomentarByDestinacijaIdAsync(int id);
         Task<List<Komentar>> GetAllKomentarAsync();
     }
 }

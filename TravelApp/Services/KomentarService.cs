@@ -39,10 +39,23 @@ namespace TravelApp.Services
             return await appDbContext.Komentari.ToListAsync();
         }
 
-        public async Task<Komentar> GetKomentarByIdAsync(int id)
+        public async Task<List<KomentarDto>> GetKomentarByDestinacijaIdAsync(int id)
         {
-            var comm = await appDbContext.Komentari.FindAsync(id);
-            return comm;
+            var comments = await appDbContext.Komentari
+                .Where(d => d.DestinacijaId == id)
+                .Select(c => new KomentarDto
+                {
+                    Id = c.Id,
+                    Tekst = c.Tekst,
+                    Datum = c.Datum,
+                    KorisnikIme = c.Korisnik.Ime,
+                    KoristnikPrezime = c.Korisnik.Prezime,
+                    DestinacijaIme = c.Destinacija.Naziv
+                })
+                .ToListAsync();
+            return comments;
         }
+
+
     }
 }

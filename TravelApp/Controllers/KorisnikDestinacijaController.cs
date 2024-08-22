@@ -47,7 +47,51 @@ namespace TravelApp.Controllers
                 return BadRequest("KorisnikDestinacija nije obrisana");
             return Ok("KorisnikDestinacija je uspesno obrisana");
         }
+        //[HttpPost("api")]
+        //public async Task<IActionResult> PostFavorites([FromBody] KorisnikDestinacijaRequest korisnikDestinacija)
+        //{
+        //    var newKorisnikDestinacija = await this.korisnikDestinacija.AddKorisnikDestinacijaFavorites(korisnikDestinacija);
+        //    if (!newKorisnikDestinacija)
+        //        return BadRequest("KorisnikDestinacija nije dodata");
+        //    return Ok("KorisnikDestinacija je uspešno dodata");
+        //}
 
-        
+        [HttpPost("api")]
+        public async Task<IActionResult> AddCarToFavourite([FromBody] KorisnikDestinacijaRequest request)
+        {
+            var result = await korisnikDestinacija.AddKorisnikDestinacijaFavoritesAsync(request.KorisnikId, request.DestinacijaId);
+
+            return Ok();
+        }
+
+        [HttpDelete("api/{id}")]
+        public async Task<IActionResult> DeleteRemove([FromRoute] int id)
+        {
+            
+            var  resultnew = await this.korisnikDestinacija.RemoveKorisnikDestinacijaAsync(id);
+            if (!resultnew)
+                return BadRequest("Lajk nije pronađen ili nije mogao biti obrisan");
+
+            return Ok("Lajk je uspešno obrisan");
+        }
+
+
+        [HttpGet("user/destinacije/{id}")]
+        public async Task<IActionResult> GetLajkovaneDestinacije(int id)
+        {
+            var destinacije = await korisnikDestinacija.GetLajkovaneDestinacijeAsync(id);
+            if (destinacije == null || !destinacije.Any())
+            {
+                return NotFound("Korisnik nema lajkovane destinacije.");
+            }
+            return Ok(destinacije);
+        }
+
+
+
+
+
+
+
     }
 }

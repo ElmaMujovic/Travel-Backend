@@ -42,6 +42,7 @@ builder.Services.AddScoped<IPaketService, PaketService>();
 builder.Services.AddScoped<IDestinacijaPaketaService>(provider =>
     new DestinacijaPaketaService(provider.GetRequiredService<AppDbContext>(),
     Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images")));
+builder.Services.AddScoped<IKorisnikService, KorisnikService>();
 
 
 builder.Services.AddScoped<IListService, ListService>();
@@ -49,6 +50,7 @@ builder.Services.AddScoped<IListService, ListService>();
 builder.Services.AddScoped<IListService, ListService>();
 
 builder.Services.AddAutoMapper(typeof(ListMappingProfile).Assembly);
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

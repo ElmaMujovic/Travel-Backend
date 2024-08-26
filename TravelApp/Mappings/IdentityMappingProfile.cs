@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TravelApp.Contracts.User.Request;
+using TravelApp.Contracts.User.Response;
 using TravelApp.Models;
 
 namespace TravelApp.Mappings
@@ -9,6 +10,11 @@ namespace TravelApp.Mappings
         public IdentityMappingProfile()
         {
             CreateMap<UserRegister, Korisnik>();
+
+            CreateMap<Korisnik, UserResponse>();
+
+            CreateMap<UpdateUserRequest, Korisnik>();
+
         }
     }
 }

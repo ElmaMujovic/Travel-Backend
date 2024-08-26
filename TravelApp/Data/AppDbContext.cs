@@ -72,6 +72,10 @@ namespace TravelApp.Data
     .WithMany(p => p.List)
     .HasForeignKey(l => l.PaketId)
     .OnDelete(DeleteBehavior.NoAction);
+
+
+            builder.Entity<WhyChooseUsInfo>()
+              .HasKey(w => w.Id);  // Primer: postavljanje primarnog ključa
         }
 
         public DbSet<Destinacija> Destinacije { get; set; }
@@ -83,6 +87,7 @@ namespace TravelApp.Data
 
         public DbSet<List> TravelLists { get; set; }
         public DbSet<List> Lists { get; set; }  // Dodajte ovo
+        public DbSet<WhyChooseUsInfo> WhyChooseUsInfos { get; set; }  // Dodaj ovo
 
 
 

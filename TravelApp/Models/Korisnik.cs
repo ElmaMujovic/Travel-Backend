@@ -9,7 +9,7 @@ namespace TravelApp.Models
         
         public int Godina { get; set; }
         public string Grad { get; set; }
-
+        
         public string ImagePath { get; set; }
 
         public List<KorisnikDestinacija> KorisnikDestinacije { get; set;}
